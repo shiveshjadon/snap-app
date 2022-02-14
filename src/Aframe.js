@@ -6,6 +6,7 @@ import 'aframe-htmlembed-component'
 import 'aframe-mapbox-component';
 
 import { io } from 'socket.io-client'
+import { getSpaceUntilMaxLength } from '@testing-library/user-event/dist/utils';
 
 const socket = io('http://localhost:4000/');
 const accessToken = 'pk.eyJ1IjoibWF0dHJlIiwiYSI6IjRpa3ItcWcifQ.s0AGgKi0ai23K5OJvkEFnA'
@@ -21,7 +22,7 @@ class Aframe extends Component {
   componentDidMount() {
     this.setState({ test: '123' })
 
-    let defaultTranscript = "Hey! It’s been so long. I heard you were backpacking in Alps ! How was it? It was a wonderful trip! I had a great time! What about you? I went to Mexico with my family. Saw one of the seven wonders of the world. Chichen Itza .  Wow It’s on my bucket list!   If you ever go there, do visit the Warrior’s Temple.  I see! it’s pretty close to Chichen Itza.  great! I’m not used to the Calgary cold. Mexico City was much warmer! haha, I think it will take more than just 2-3 days. Ok, I’ll catch up with you next Monday at the management meeting. See ya!"
+    let defaultTranscript = "Hey! It’s been so long. I heard you were backpacking in Alps ! How was it? It was a wonderful trip! I had a great time! What about you? I went to Mexico with my family. Saw one of the seven wonders of the world. Chichen Itza .  Wow It’s on my bucket list!   If you ever go there, do visit the Warriors Temple.  I see! it’s pretty close to Chichen Itza.  great! I’m not used to the Calgary cold. Mexico City was much warmer! haha, I think it will take more than just 2-3 days. Ok, I’ll catch up with you next Monday at the management meeting. See ya!"
     socket.emit('message', defaultTranscript)
 
     socket.on('message', (message) => {
@@ -53,16 +54,55 @@ class Aframe extends Component {
 
     let map = this.state.map
     let weather = this.state.weather
-    let info = { text: text, description: text, images: ['https://semantic-ui.com/images/avatar2/large/kristy.png'] }
+
+    // //search image
+    // let img = getImage(keyword.text)
+    // console.log("img is: ", img)
+    // function getImage(query) {
+    //   socket.emit('query', query)
+    //   socket.on('img', (data) => {
+    //     // console.log(data)   
+    //     let url = data.thumbnail
+    //     return url;
+    //   }) 
+    // }   
+    // let info = { text: text, description: text, images: [img] }
+
+    let info = { text: text, description: text, images: ['https://semantic-ui.com/images/avatar2/large/kristy.png'] }   
+    this.updateHtml()
 
     if (text === 'Alps') {
       map = '8.4276074, 45.8883756'
+      info.images[0] = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Lac-Cheserys.jpg/400px-Lac-Cheserys.jpg";
     }
     if (text === 'Mexico City') {
       map = '-99.1332, 19.4326'
+      info.images[0] = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Sobrevuelos_CDMX_IMG_5982_%2839488832615%29.jpg/800px-Sobrevuelos_CDMX_IMG_5982_%2839488832615%29.jpg";
     }
 
+    if(text === 'Mexico')
+      info.images[0] ="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Flag_of_Mexico.svg/1200px-Flag_of_Mexico.svg.png"
+      
+    if(text === 'the world')
+      info.images[0] ="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/270px-The_Earth_seen_from_Apollo_17.jpg"
+
+    if(text === 'the seven wonders')
+      info.images[0] ="https://upload.wikimedia.org/wikipedia/commons/f/fb/New7Wonders.jpg"
+
+    if(text === 'Chichen Itza')
+      info.images[0] ="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Chichen_Itza_3.jpg/360px-Chichen_Itza_3.jpg"
+
+    if(text === 'my bucket list')
+      info.images[0] ="https://www.swedishnomad.com/wp-content/images/2019/12/Bucket-List.jpg"    
+      
+    if(text === 'my family')
+      info.images[0] ="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Family_eating_meal.jpg/220px-Family_eating_meal.jpg"       
+
+    if(text === 'the Warriors Temple')
+      info.images[0] ="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Temple_of_the_Warriors%2C_Chichen_Itza1986.jpg/120px-Temple_of_the_Warriors%2C_Chichen_Itza1986.jpg"       
+
     if (text === 'the Calgary cold') {
+      info.images[0] ="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Downtown_Calgary_2020-3.jpg/1200px-Downtown_Calgary_2020-3.jpg"
       weather = [
         { date: 'Mon', temperature: '-2', type: 'sunny' },
         { date: 'Tue', temperature: '2', type: 'cloudy' },
@@ -74,7 +114,6 @@ class Aframe extends Component {
       ]
     }
     this.setState({ current: info, map: map, weather: weather }, this.updateHtml )
-
   }
 
   updateHtml() {

@@ -11,6 +11,7 @@
     "aframe-mapbox-component": "^4.0.1",
     "aframe-react": "^4.4.0",
     "cors": "^2.8.5",
+    "duckduckgo-images-api": "^1.0.5",
     "express": "^4.17.2",
     "python-shell": "^3.0.1",
     "react": "^17.0.2",

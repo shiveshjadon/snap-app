@@ -15,6 +15,8 @@ const io = socketio(server,{
   }
 });
 
+const { image_search } = require('duckduckgo-images-api')
+
 server.listen(4000, () => {
   console.log('Spacy server listening on 4000')
 })
@@ -25,6 +27,20 @@ io.on('connection', (socket) => {
     console.log(message)
     pyshell.send(message)
   })
+
+  //recieve img request 
+  socket.on('query', (query) => {  
+    console.log("got request for query: ", query)  
+    image_search({ 
+      query: query, 
+      moderate : true,   
+      iterations : 1,
+      retries  : 1
+    }).then(function(res) {
+      console.log(res[0])
+      socket.emit('img', res[0])
+    })
+  })  
 
   pyshell.on('message', (message) => {
     console.log(message)
