@@ -6,7 +6,7 @@ function App() {
     <div>
       <Aframe />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
