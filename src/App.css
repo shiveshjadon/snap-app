@@ -13,6 +13,9 @@ body {
 - NNP Proper noun, singular
 - NNPS  Proper noun, plural
 */
+.keyword {
+  background: #96D4CC;
+}
 .tag-nns {
   background: #96D4CC; /* dark green */
 }
@@ -31,10 +34,14 @@ body {
 .entity-org {
   background: #BAD8FF;
 }
-.keyword {
-  background: #96D4CC;
+.entity-gpe {
+  background: orange;
 }
 .image {
   height: 100% !important;
   object-fit: cover !important;
+}
+
+.segment {
+  width: 800px;
 }

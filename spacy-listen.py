@@ -10,14 +10,16 @@ while True:
   text = input()
   doc = nlp(text)
 
-  res = { "tokens": [], "keywords": {} }
+  res = { "tokens": [], "keywords": [] }
 
   keywords = {}
   for phrase in doc._.phrases:
     if (phrase.rank > 0):
       keywords[phrase.text] = phrase.rank
-
-  res["keywords"] = keywords
+      res["keywords"].append({
+        "text": phrase.text,
+        "rank": phrase.rank,
+      })
 
   for token in doc:
     rank = keywords.get(token.text, 0)
