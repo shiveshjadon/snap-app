@@ -1,38 +1,40 @@
-.App {
-  text-align: center;
+body {
+  margin: 10px
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.highlight {
+  cursor: pointer;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.highlight:hover {
+  font-weight: bold;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/*
+- NN  Noun, singular or mass
+- NNS Noun, plural
+- NNP Proper noun, singular
+- NNPS  Proper noun, plural
+*/
+.tag-nns {
+  background: #96D4CC; /* dark green */
 }
-
-.App-link {
-  color: #61dafb;
+.tag-nnp {
+  background: #DBF5AE; /* green */
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.tag-nn {
+  background: #BAE6A2; /* light green */
+}
+.entity-person {
+  background: #FDD1D2;
+}
+.entity-date {
+  background: #FFF4B0;
+}
+.entity-org {
+  background: #BAD8FF;
+}
+.keyword {
+  background: #96D4CC;
+}
+.image {
+  height: 100% !important;
+  object-fit: cover !important;
 }
